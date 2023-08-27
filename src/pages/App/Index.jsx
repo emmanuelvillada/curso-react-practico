@@ -1,0 +1,34 @@
+import { useRoutes, BrowserRouter } from 'react-router-dom'
+import Home from '../Home'
+import MyAccount from '../Myaccount'
+import MyOrder from '../Myorder'
+import MyOrders from '../Myorders'
+import NotFound from '../Notfound'
+import SignIn from '../Signin'
+import Navbar from '../../components/navbar'
+import './App.css'
+
+//crea las rutas de las diferentes paginas
+const AppRoutes = () => {
+  let routes = useRoutes([
+    { path: '/', element: <Home /> },
+    { path: '/my-account', element: <MyAccount /> },
+    { path: '/my-order', element: <MyOrder /> },
+    { path: '/my-orders', element: <MyOrders /> },
+    { path: '/sign-in', element: <SignIn /> },
+    { path: '/*', element: <NotFound /> },
+  ])
+
+  return routes
+}
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+      <Navbar/>
+    </BrowserRouter>
+  )
+}
+
+export default App
