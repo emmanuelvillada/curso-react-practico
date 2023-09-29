@@ -1,15 +1,16 @@
 import { useContext, useState } from "react"
 import { ShoppingCartContext } from "../../context"
-function Card({ price, tittle, image, category }) {
+function Card({  price, tittle, image, category }) {
     const context = useContext(ShoppingCartContext)
-
+    //creamos la variable para almacenar la informacion del producto
+    const productData = { price, tittle, image, category }
 
     //funcion de click sobre una card
     const showProduct = (productDetail) => {
         context.openProductDetail()
         context.setProductToShow(productDetail)
     }
-
+    //funcion para añadir productos al carrito de compra
     const addProductsToCart = (event, productData) => {
         event.stopPropagation()
         context.setCount(context.count + 1)
@@ -17,28 +18,64 @@ function Card({ price, tittle, image, category }) {
         context.openCheckoutSideMenu()
         context.closeProductDetail()
     }
-    
+
+
+
+    function isInCart() {
+        const isInCart = context.cartProducts.filter(product => product.id === id).length > 0
+    }
+
+    const renderIcon = (id) => {
+        isIncart()
+    }
+
+    //si el producto esta almacenado en el carrito se renderiza con un check icon sino pasa a la sifuiente funcion y se renderiza con un icono para agregar
+    if (isInCart()) {
+        return (
+            <div
+                className='absolute top-0 right-0 flex justify-center items-center bg-black w-6 h-6 rounded-full m-2 p-1'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+
+
+            </div>
+        )
+    } else {
+        return (
+            <div
+                className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'
+                onClick={(event) => addProductsToCart(event, productData)}>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+
+
+            </div>
+        )
+    }
+
 
 
     return (
-        <div onClick={() => showProduct({ price, tittle, image, category })} className='bg-white cursor-pointer w-56 h-60 rounded-lg'>
+        <div
+            className='bg-white cursor-pointer w-56 h-60 rounded-lg'
+            onClick={() => showProduct(productData)}>
             <figure className='relative mb-2 w-full h-4/5'>
-                <span className='absolute bottom-0 left-0 bg-white/60 rounded-lg text-black text-xs m-2 px-3 py-0.5'>{category}</span>
-                <img className='w-full h-full object-cover rounded-lg' src={image} alt={tittle} />
-                <div
-                    className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'
-                    onClick={(event) => addProductsToCart(event, data.data)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                    </svg>
-
-                </div>
+                <span className='absolute bottom-0 left-0 bg-white/60 rounded-lg text-black text-xs m-2 px-3 py-0.5'>{tittle}</span>
+                <img className='w-full h-full object-cover rounded-lg' src={image} alt={category} />
+                {renderIcon(id)}
             </figure>
             <p className='flex justify-between'>
-                <span className='text-sm font-medium'>{tittle}</span>
+                <span className='text-sm font-light'>{tittle}</span>
                 <span className='text-lg font-medium'>${price}</span>
             </p>
         </div>
     )
 }
+
+
+
 export default Card
+
+
