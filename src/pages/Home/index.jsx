@@ -20,7 +20,7 @@ function Home () {
                     <Card key={item.id} price={item.price} tittle={item.tittle} image={item.image} category={item.category} />
                 ))}
             </div>
-            <ProductDetail></ProductDetail>
+            <ProductDetail />
         </Layout>
         
     )
