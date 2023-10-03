@@ -17,7 +17,7 @@ function CheckOutSideMenu() {
         totalProducts: context.cartProducts.length,
         totalPrice : totalPrice(context.cartProducts)
     }
-    context.setOrder([...context.order,])
+    context.setOrder([...context.order,orderToAdd])
     }
     context.setCartProducts([])
     context.setCount(0)
