@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { ShoppingCartContext } from "../../context"
+import { totalPrice } from "../../Utils";
 
 function CheckOutSideMenu() {
     const context = useContext(ShoppingCartContext)
@@ -28,6 +29,12 @@ function CheckOutSideMenu() {
                         />
                     ))
                 }
+            </div>
+            <div className="px-6">
+                <p className="flex justify-between items-center">
+                    <span>Precio total:</span>
+                    <span>${totalPrice(context.cartProducts)}</span>
+                </p>
             </div>
         </aside>
     )
