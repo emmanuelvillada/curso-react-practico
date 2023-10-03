@@ -44,6 +44,7 @@ function CheckOutSideMenu() {
                             title={product.title}
                             imageUrl={product.images}
                             price={product.price}
+                            handleDelete = {handleDelete}
                         />
                     ))
                 }
@@ -53,7 +54,9 @@ function CheckOutSideMenu() {
                     <span className="font-light">Precio total:</span>
                     <span className="font-medium text-2xl">${totalPrice(context.cartProducts)}</span>
                 </p>
-                <button className="w-full py-3 bg-black text-white" onClick={() => handleCheckout()}>Checkout</button>
+                <Link to='/my-orders/last'>
+                    <button className="w-full py-3 bg-black text-white" onClick={() => handleCheckout()}>Checkout</button>
+                </Link>
             </div>
         </aside>
     )
