@@ -1,4 +1,4 @@
-import { XMarkIcon } from '@heroicons/react/24/solid'
+
 
 function OrderCard(props) {
     const { id, title, imageUrl, price, handleDelete } = props

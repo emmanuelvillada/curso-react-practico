@@ -1,7 +1,7 @@
-import { Layout } from '../../components/Layout'
+import  Layout  from '../../components/Layout'
 import { useContext } from 'react'
 import { ShoppingCartContext } from '../../context'
-import { orderCard } from '../../components/OrderCArd'
+import  OrderCard  from '../../components/OrderCArd'
 
 function MyOrder() {
     const context = useContext(ShoppingCartContext)
