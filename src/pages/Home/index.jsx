@@ -13,7 +13,7 @@ function Home() {
             .then(json => setItmes(json))
 
     }, [])
-
+    console.log(items)
     return (
         <Layout>
             Home
@@ -24,8 +24,9 @@ function Home() {
             </div>
             <ProductDetail />
         </Layout>
-
+    
     )
+    
 }
 
 export default Home
