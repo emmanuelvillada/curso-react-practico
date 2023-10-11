@@ -1,12 +1,12 @@
 import { useContext } from "react"
 import  OrderCard  from "../../components/OrderCArd"
-import { ShoppingCartContext } from "../../context"
+import { ShoppingCartContext } from '../../context'
 import { Link } from "react-router-dom"
 import Layout from "../../components/Layout"
 
 function MyOrders() {
 
-    context = useContext(ShoppingCartContext)
+    const context = useContext(ShoppingCartContext)
 
 
     return (

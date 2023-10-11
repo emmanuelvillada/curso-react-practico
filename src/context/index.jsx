@@ -1,8 +1,8 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
 export const ShoppingCartContext = createContext();
 
-export  const ShoppingCartProvider = ({children}) =>{
+export const ShoppingCartProvider = ({ children }) => {
     //estado contador del carrito
     const [count, setcount] = useState(0);
     //estado del product detail
@@ -19,8 +19,8 @@ export  const ShoppingCartProvider = ({children}) =>{
     const [isCheckoutSideMenuOpen, setIsCheckoutSideMenuOpen] = useState(false);
 
     //funciones para abrir y cerrar el checkoutsidemenu
-    const openCheckoutSideMenu = () => setisCheckoutSideMenuOpen(true);
-    const closeCheckoutSideMenu = () => setisCheckoutSideMenuOpen(false);
+    const openCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(true);
+    const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false);
 
     //estado para el carrito de compras
     const [cartProducts, setCartProducts] = useState([])
@@ -28,17 +28,44 @@ export  const ShoppingCartProvider = ({children}) =>{
     //estado para las ordenes
     const [order, setOrder] = useState([])
 
-    return(
-        <ShoppingCartContext.Provider value= 
-        {{
-            count, setcount,
-            isDetailProductOpen,setisDetailProductOpen, openProductDetail, closeProductDetail, 
-            productToShow, setProductToShow,
-            isCheckoutSideMenuOpen, setIsCheckoutSideMenuOpen, openCheckoutSideMenu, closeCheckoutSideMenu,
-            cartProducts, setCartProducts,
-            order, setOrder
-        
-        }}>
+    //estado para los productos que se muestran
+    const [items, setItems] = useState(null)
+
+    const [filteredItems, setFilteredItems] = useState(null)
+
+    // Get products by title
+    const [searchByTitle, setSearchByTitle] = useState(null)
+
+    useEffect(() => {
+        fetch('https://fakestoreapi.com/products')
+            .then(res => res.json())
+            .then(data => setItems(data))
+
+    }, [])
+
+    const filteredItemsByTitle = (items, searchByTitle) => {
+        return items?.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()))
+    }
+
+    useEffect(() => {
+        if (searchByTitle) setFilteredItems(filteredItemsByTitle(items, searchByTitle))
+    }, [items, searchByTitle])
+
+
+    return (
+        <ShoppingCartContext.Provider value=
+            {{
+                count, setcount,
+                isDetailProductOpen, setisDetailProductOpen, openProductDetail, closeProductDetail,
+                productToShow, setProductToShow,
+                isCheckoutSideMenuOpen, setIsCheckoutSideMenuOpen, openCheckoutSideMenu, closeCheckoutSideMenu,
+                cartProducts, setCartProducts,
+                order, setOrder,
+                items, setItems,
+                filteredItems, setFilteredItems,
+                searchByTitle, setSearchByTitle
+
+            }}>
             {children}
         </ShoppingCartContext.Provider>
     )
