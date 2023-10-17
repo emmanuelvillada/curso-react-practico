@@ -6,6 +6,13 @@ import './style.css'
 function ProductDetail() {
     const context = useContext(ShoppingCartContext)
 
+    const addProductsToCart = (event, productData) => {
+        event.stopPropagation()
+        context.setcount(context.count + 1)
+        context.setCartProducts([...context.cartProducts, productData])
+        context.openCheckoutSideMenu()
+        context.closeProductDetail()
+    }
 
     return (
         <aside
@@ -29,6 +36,7 @@ function ProductDetail() {
                 <span className='font-medium text-md'>${context.productToShow.title}</span>
                 <span className='font-light text-sm'>${context.productToShow.description}</span>
             </p>
+            <button onClick={(event) => addProductsToCart(event, context.productToShow)} className="font-medium bold border-black border mx-10 hover:from-white hover:to-#D9D9D9" >Add product to cart </button>
         </aside>
     )
 }

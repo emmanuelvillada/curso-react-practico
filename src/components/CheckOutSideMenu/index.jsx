@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import { ShoppingCartContext } from '../../context'
-import OrderCard from '../../Components/OrderCard'
+import OrderCard from '../../components/OrderCard'
 import { totalPrice } from '../../utils'
 import './styles.css'
 
@@ -16,7 +16,7 @@ const CheckoutSideMenu = () => {
 
     const handleCheckout = () => {
         const orderToAdd = {
-            date: '01.02.23',
+            date: getDate(),
             products: context.cartProducts,
             totalProducts: context.cartProducts.length,
             totalPrice: totalPrice(context.cartProducts)
